@@ -6,10 +6,11 @@ struct Rotation {
 }
 
 fn main() {
-    //read line per line
-    let input: String = fs::read_to_string("./input.txt").expect("Error reading file.");
+    let mut input: String = fs::read_to_string("./input.txt").expect("Error reading file.");
+    input.pop();
 
     let mut pos: usize = 50;
+    let mut total: usize = 0;
 
     for rotation in input.split("\n") {
         let rot: Rotation = Rotation { 
@@ -18,8 +19,7 @@ fn main() {
         };
 
 
-        match &rotation.chars().nth(0).unwrap() {
-            //get number from input
+        match rot.direction {
             'L' =>  if rot.value < pos {
                 pos -= rot.value;
             } else {
@@ -33,13 +33,12 @@ fn main() {
         if pos >= 100 {
             pos = pos % 100;
         }
-        
-        println!("{pos}");
 
-        //take module of result so that 100 => 0
-        //add total of 0's to result
-        //print result
+        if pos == 0 {
+            total += 1;
+        }
         
     }
+    println!("{total}");
 }
 
