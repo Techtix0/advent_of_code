@@ -15,15 +15,15 @@ fn main() {
     for rotation in input.split("\n") {
         let rot: Rotation = Rotation { 
             direction: rotation.chars().nth(0).unwrap(), 
-            value: &rotation[1..].parse::<usize>().unwrap() % 100
+            value: rotation[1..].parse::<usize>().unwrap()
         };
 
 
         match rot.direction {
-            'L' =>  if rot.value < pos {
-                pos -= rot.value;
+            'L' =>  if rot.value % 100 < pos {
+                pos -= rot.value % 100;
             } else {
-                pos = 100 - (rot.value - pos);
+                pos = 100 - (rot.value % 100 - pos);
             },
 
             'R' => pos += rot.value,
